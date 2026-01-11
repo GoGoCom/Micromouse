@@ -1,9 +1,6 @@
 # Micromouse
 
 
-
-![](img/mouses.jpg)
-
 ## Introduction
 
 Based on object-oriented theory, I redefined and systematized the Micro Mouse robot. Classes were defined, and inheritance was used to inherit characteristics from the systematized superclass. From children to elders, the robot could be modified to suit their needs, mimicking the natural behavior of an animal.
