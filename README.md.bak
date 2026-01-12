@@ -47,11 +47,11 @@ MotorCfg;
 
 This is where you set information related to the mouse's brain, such as the size of the maze, the location of the goal, etc. You can also choose whether or not to simulate.
  
- define SIMULATION  1 // 0 or 1 - simulation or not
+#define SIMULATION  1 // 0 or 1
 
- define SIZE 16	// Size of one dimention of Map
- define GoalRight  SIZE/2  // classic
- define GoalUpper  SIZE/2
+#define SIZE 16	// Size of one dimention of Map
+#define GoalRight  SIZE/2  // classic
+#define GoalUpper  SIZE/2
 
 //#define SIZE 32		// Size of one dimension of Map
 //#define GoalRight   20  // 2024 J
@@ -61,8 +61,8 @@ This is where you set information related to the mouse's brain, such as the size
 
 This is where the size of the stack and queue is determined based on the size of the maze
 
- define STACKSIZE 8192 //4096
- define QUEUESIZE 1512 //512 //255  //1024
+#define STACKSIZE 8192 //4096
+#define QUEUESIZE 1512 //512 //255  //1024
 
 * main.cpp
 
