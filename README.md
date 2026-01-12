@@ -67,6 +67,8 @@ This is where the size of the stack and queue is determined based on the size of
 
 Generation-specific mice are pre-prepared and available for use upon request.
 
+| Description |
+||
 | // Active mouse |
 | //BabyMouse      *mice =  &BDavid; |
 | //YoungMouse     *mice =  &YDavid; |
@@ -78,7 +80,7 @@ Generation-specific mice are pre-prepared and available for use upon request.
 | Tool | version | description |
 |-|-|-|
 | STM32CubeIDE | 1.19.0 | software |
-| QT Creator | 17.0.2 | simulato |
+| QT Creator | 17.0.2 | simulation |
 | Autodesk Eagle | 9.6.2 | hardware |
 
 ## Acknowledgments
