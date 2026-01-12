@@ -1,0 +1,21 @@
+../Modules/Body/CDriveProfile.cpp:19:1:CDriveProfile::~CDriveProfile()	0	static
+../Modules/Body/CDriveProfile.cpp:19:1:virtual CDriveProfile::~CDriveProfile()	8	static
+../Modules/Body/CDriveProfile.cpp:14:1:CDriveProfile::CDriveProfile()	0	static
+../Modules/Body/CDriveProfile.cpp:23:6:void CDriveProfile::init()	0	static
+../Modules/Body/CDriveProfile.cpp:29:6:void CDriveProfile::reset()	0	static
+../Modules/Body/CDriveProfile.cpp:82:6:void CDriveProfile::clear_counters()	0	static
+../Modules/Body/CDriveProfile.cpp:88:6:bool CDriveProfile::is_finished()	0	static
+../Modules/Body/CDriveProfile.cpp:90:6:void CDriveProfile::start(float, float, float, float)	0	static
+../Modules/Body/CDriveProfile.cpp:116:6:void CDriveProfile::stop()	0	static
+../Modules/Body/CDriveProfile.cpp:123:6:void CDriveProfile::finish()	0	static
+../Modules/Body/CDriveProfile.cpp:130:6:void CDriveProfile::set_state(ProfileState)	0	static
+../Modules/Body/CDriveProfile.cpp:132:7:float CDriveProfile::get_braking_distance()	16	static
+../Modules/Body/CDriveProfile.cpp:41:6:void CDriveProfile::update()	24	static
+../Modules/Body/CDriveProfile.cpp:136:7:float CDriveProfile::position()	0	static
+../Modules/Body/CDriveProfile.cpp:144:7:float CDriveProfile::speed()	0	static
+../Modules/Body/CDriveProfile.cpp:152:7:float CDriveProfile::increment()	0	static
+../Modules/Body/CDriveProfile.cpp:160:7:float CDriveProfile::acceleration()	0	static
+../Modules/Body/CDriveProfile.cpp:168:6:void CDriveProfile::set_speed(float)	0	static
+../Modules/Body/CDriveProfile.cpp:173:6:void CDriveProfile::set_target_speed(float)	0	static
+../Modules/Body/CDriveProfile.cpp:180:6:void CDriveProfile::adjust_position(float)	0	static
+../Modules/Body/CDriveProfile.cpp:186:6:void CDriveProfile::set_position(float)	0	static

@@ -1,0 +1,3 @@
+../Modules/Devices/SSD1306/ssd1306_console.cpp:33:8:size_t ssd1306_consoleWriter(uint8_t)	40	static
+../Modules/Devices/SSD1306/ssd1306_console.cpp:81:6:void Ssd1306Console::clear()	8	static
+../Modules/Devices/SSD1306/ssd1306_console.cpp:87:6:void Ssd1306Console::setCursor(lcduint_t, lcduint_t)	0	static

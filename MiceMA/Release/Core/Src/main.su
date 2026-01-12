@@ -1,0 +1,8 @@
+../Core/Src/main.cpp:98:6:void click1()	16	static
+../Core/Src/main.cpp:113:6:void click2()	16	static
+../Core/Src/main.cpp:253:6:void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef*)	0	static
+../Core/Src/main.cpp:266:6:void Error_Handler()	8	static,ignoring_inline_asm
+../Core/Src/main.cpp:210:6:void SystemClock_Config()	88	static
+../Core/Src/main.cpp:135:5:int main()	144	static
+../Core/Src/main.cpp:277:1:cpp)	8	static
+../Core/Src/main.cpp:277:1:cpp)	8	static

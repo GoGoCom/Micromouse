@@ -1,0 +1,25 @@
+../Modules/Brain/Cerebrum.cpp:23:1:Cerebrum::Cerebrum()	24	static
+../Modules/Brain/Cerebrum.cpp:32:6:void Cerebrum::CerebrumInit(Simulation*)	0	static
+../Modules/Brain/Cerebrum.cpp:38:13:MazeCells* Cerebrum::new_Maze()	32	static
+../Modules/Brain/Cerebrum.cpp:59:6:void Cerebrum::delete_Maze()	24	static
+../Modules/Brain/Cerebrum.cpp:69:6:void Cerebrum::print_map()	80	static
+../Modules/Brain/Cerebrum.cpp:88:6:bool Cerebrum::check_start_reached(Node*, bool*)	8	static
+../Modules/Brain/Cerebrum.cpp:101:6:bool Cerebrum::check_goal_reached(Node*, bool*)	8	static
+../Modules/Brain/Cerebrum.cpp:115:6:void Cerebrum::SetWall(Node*, uint8_t)	0	static
+../Modules/Brain/Cerebrum.cpp:127:6:void Cerebrum::SetGoalWall(Node*, uint8_t)	8	static
+../Modules/Brain/Cerebrum.cpp:133:6:void Cerebrum::OptimizePath()	20	static
+../Modules/Brain/Cerebrum.cpp:152:9:uint8_t Cerebrum::EdgeRunDirection(uint8_t, uint8_t)	0	static
+../Modules/Brain/Cerebrum.cpp:195:6:void Cerebrum::PathDisplay(uint8_t, uint8_t, uint8_t, uint8_t, bool)	12	static
+../Modules/Brain/Cerebrum.cpp:206:5:int Cerebrum::Diff_Angle(uint8_t, uint8_t)	8	static
+../Modules/Brain/Cerebrum.cpp:217:6:void Cerebrum::Reflooding(Node*, bool)	32	static
+../Modules/Brain/Cerebrum.cpp:249:6:void Cerebrum::StartToGoalReflooding(uint8_t, uint8_t)	0	static
+../Modules/Brain/Cerebrum.cpp:257:6:void Cerebrum::GoalToStartReflooding(uint8_t, uint8_t)	0	static
+../Modules/Brain/Cerebrum.cpp:268:6:bool Cerebrum::ReadPath(Queue*)	8	static
+../Modules/Brain/Cerebrum.cpp:273:6:bool Cerebrum::WritePath(Queue*)	8	static
+../Modules/Brain/Cerebrum.cpp:280:6:void Cerebrum::SetResources()	8	static
+../Modules/Brain/Cerebrum.cpp:287:6:void Cerebrum::ResetResources()	8	static
+../Modules/Brain/Cerebrum.cpp:293:9:uint8_t Cerebrum::GetNextDirectionSub(Node*, uint8_t, bool)	0	static
+../Modules/Brain/Cerebrum.cpp:345:9:uint8_t Cerebrum::GetNextDirection(Node*, uint8_t, bool)	24	static
+../Modules/Brain/Cerebrum.cpp:400:6:void Cerebrum::SetWallCell(Node*, uint8_t, bool, bool, bool)	16	static
+../Modules/Brain/Cerebrum.cpp:28:1:Cerebrum::~Cerebrum()	8	static
+../Modules/Brain/Cerebrum.cpp:28:1:virtual Cerebrum::~Cerebrum()	8	static

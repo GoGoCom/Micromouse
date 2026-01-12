@@ -1,0 +1,8 @@
+../Modules/Devices/SSD1306/intf/ssd1306_interface.c:40:6:ssd1306_commandStart	0	static
+../Modules/Devices/SSD1306/intf/ssd1306_interface.c:46:6:ssd1306_sendDataStart	0	static
+../Modules/Devices/SSD1306/intf/ssd1306_interface.c:54:6:ssd1306_sendCommand	16	static
+../Modules/Devices/SSD1306/intf/ssd1306_interface.c:64:6:ssd1306_sendCommands	0	static
+../Modules/Devices/SSD1306/intf/ssd1306_interface.c:75:6:ssd1306_sendData	0	static
+../Modules/Devices/SSD1306/intf/ssd1306_interface.c:88:6:ssd1306_sendWordData	8	static
+../Modules/Devices/SSD1306/intf/ssd1306_interface.c:105:6:ssd1306_sendDatas	16	static
+../Modules/Devices/SSD1306/intf/ssd1306_interface.c:111:6:ssd1306_sendDataFinish	8	static

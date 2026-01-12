@@ -1,0 +1,25 @@
+../Modules/Brain/Cerebrum.cpp:23:1:Cerebrum::Cerebrum()	1
+../Modules/Brain/Cerebrum.cpp:28:1:Cerebrum::~Cerebrum()	1
+../Modules/Brain/Cerebrum.cpp:28:1:virtual Cerebrum::~Cerebrum()	1
+../Modules/Brain/Cerebrum.cpp:32:6:void Cerebrum::CerebrumInit(Simulation*)	1
+../Modules/Brain/Cerebrum.cpp:38:13:MazeCells* Cerebrum::new_Maze()	9
+../Modules/Brain/Cerebrum.cpp:59:6:void Cerebrum::delete_Maze()	3
+../Modules/Brain/Cerebrum.cpp:69:6:void Cerebrum::print_map()	6
+../Modules/Brain/Cerebrum.cpp:88:6:bool Cerebrum::check_start_reached(Node*, bool*)	3
+../Modules/Brain/Cerebrum.cpp:101:6:bool Cerebrum::check_goal_reached(Node*, bool*)	5
+../Modules/Brain/Cerebrum.cpp:115:6:void Cerebrum::SetWall(Node*, uint8_t)	1
+../Modules/Brain/Cerebrum.cpp:127:6:void Cerebrum::SetGoalWall(Node*, uint8_t)	1
+../Modules/Brain/Cerebrum.cpp:133:6:void Cerebrum::OptimizePath()	7
+../Modules/Brain/Cerebrum.cpp:152:9:uint8_t Cerebrum::EdgeRunDirection(uint8_t, uint8_t)	13
+../Modules/Brain/Cerebrum.cpp:195:6:void Cerebrum::PathDisplay(uint8_t, uint8_t, uint8_t, uint8_t, bool)	3
+../Modules/Brain/Cerebrum.cpp:206:5:int Cerebrum::Diff_Angle(uint8_t, uint8_t)	6
+../Modules/Brain/Cerebrum.cpp:217:6:void Cerebrum::Reflooding(Node*, bool)	5
+../Modules/Brain/Cerebrum.cpp:249:6:void Cerebrum::StartToGoalReflooding(uint8_t, uint8_t)	1
+../Modules/Brain/Cerebrum.cpp:257:6:void Cerebrum::GoalToStartReflooding(uint8_t, uint8_t)	1
+../Modules/Brain/Cerebrum.cpp:268:6:bool Cerebrum::ReadPath(Queue*)	1
+../Modules/Brain/Cerebrum.cpp:273:6:bool Cerebrum::WritePath(Queue*)	1
+../Modules/Brain/Cerebrum.cpp:280:6:void Cerebrum::SetResources()	1
+../Modules/Brain/Cerebrum.cpp:287:6:void Cerebrum::ResetResources()	1
+../Modules/Brain/Cerebrum.cpp:293:9:uint8_t Cerebrum::GetNextDirectionSub(Node*, uint8_t, bool)	19
+../Modules/Brain/Cerebrum.cpp:345:9:uint8_t Cerebrum::GetNextDirection(Node*, uint8_t, bool)	20
+../Modules/Brain/Cerebrum.cpp:400:6:void Cerebrum::SetWallCell(Node*, uint8_t, bool, bool, bool)	4

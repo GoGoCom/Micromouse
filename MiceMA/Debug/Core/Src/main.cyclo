@@ -1,0 +1,10 @@
+../Core/Src/main.cpp:98:6:void click1()	1
+../Core/Src/main.cpp:113:6:void click2()	1
+../Core/Src/main.cpp:135:5:int main()	1
+../Core/Src/main.cpp:210:6:void SystemClock_Config()	3
+../Core/Src/main.cpp:253:6:void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef*)	2
+../Core/Src/main.cpp:266:6:void Error_Handler()	1
+../Core/Src/main.cpp:277:1:void __static_initialization_and_destruction_0()	1
+../Core/Src/main.cpp:277:1:void __static_initialization_and_destruction_1()	1
+../Core/Src/main.cpp:277:1:cpp)	1
+../Core/Src/main.cpp:277:1:cpp)	1

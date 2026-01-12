@@ -1,0 +1,18 @@
+../Modules/Brain/OneButton.cpp:36:1:OneButton::~OneButton()	0	static
+../Modules/Brain/OneButton.cpp:36:1:virtual OneButton::~OneButton()	8	static
+../Modules/Brain/OneButton.cpp:30:1:OneButton::OneButton()	0	static
+../Modules/Brain/OneButton.cpp:41:6:void OneButton::Init(GPIO_TypeDef*, uint16_t, int)	0	static
+../Modules/Brain/OneButton.cpp:71:6:void OneButton::setDebounceTicks(int)	0	static
+../Modules/Brain/OneButton.cpp:78:6:void OneButton::setClickTicks(int)	0	static
+../Modules/Brain/OneButton.cpp:86:6:void OneButton::setPressTicks(int)	0	static
+../Modules/Brain/OneButton.cpp:93:6:void OneButton::attachClick(callbackFunction)	0	static
+../Modules/Brain/OneButton.cpp:100:6:void OneButton::attachDoubleClick(callbackFunction)	0	static
+../Modules/Brain/OneButton.cpp:109:6:void OneButton::attachPress(callbackFunction)	0	static
+../Modules/Brain/OneButton.cpp:115:6:void OneButton::attachLongPressStart(callbackFunction)	0	static
+../Modules/Brain/OneButton.cpp:121:6:void OneButton::attachLongPressStop(callbackFunction)	0	static
+../Modules/Brain/OneButton.cpp:127:6:void OneButton::attachDuringLongPress(callbackFunction)	0	static
+../Modules/Brain/OneButton.cpp:133:6:bool OneButton::isLongPressed()	0	static
+../Modules/Brain/OneButton.cpp:137:5:int OneButton::getPressedTicks()	0	static
+../Modules/Brain/OneButton.cpp:141:6:void OneButton::reset()	0	static
+../Modules/Brain/OneButton.cpp:164:6:void OneButton::tick(bool)	16	static
+../Modules/Brain/OneButton.cpp:153:6:void OneButton::tick()	8	static

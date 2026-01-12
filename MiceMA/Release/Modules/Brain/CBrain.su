@@ -1,0 +1,10 @@
+../Modules/Brain/CBrain.cpp:20:1:CBrain::~CBrain()	8	static
+../Modules/Brain/CBrain.cpp:20:1:virtual CBrain::~CBrain()	8	static
+../Modules/Brain/CBrain.cpp:15:1:CBrain::CBrain()	8	static
+../Modules/Brain/CBrain.cpp:24:7:void CBrain::BrainInit(Simulation*, CBody*)	16	static
+../Modules/Brain/CBrain.cpp:29:7:bool CBrain::FindGoal(bool)	0	static
+../Modules/Brain/CBrain.cpp:32:7:bool CBrain::StartToGoal(uint8_t)	0	static
+../Modules/Brain/CBrain.cpp:35:7:bool CBrain::GoalToStart(uint8_t)	0	static
+../Modules/Brain/CBrain.cpp:39:9:uint8_t CBrain::HowToGo(uint8_t*, uint8_t*, uint8_t*, bool)	0	static
+../Modules/Brain/CBrain.cpp:43:9:uint8_t CBrain::MoveAction(Queue*, uint8_t)	0	static
+../Modules/Brain/CBrain.cpp:48:6:bool CBrain::CheckBoundary()	8	static

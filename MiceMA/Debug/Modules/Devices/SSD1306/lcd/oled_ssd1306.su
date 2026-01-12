@@ -1,0 +1,16 @@
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:58:13:ssd1306_setBlock	40	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:87:13:ssd1306_nextPage	4	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:91:13:ssd1306_setMode_int	16	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:95:6:ssd1306_displayOff	8	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:101:6:ssd1306_displayOn	8	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:106:6:ssd1306_setContrast	32	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:122:6:ssd1306_invertMode	8	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:127:6:ssd1306_normalMode	8	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:132:6:ssd1306_flipHorizontal	16	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:137:6:ssd1306_flipVertical	16	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:142:6:ssd1306_setStartLine	16	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:148:9:ssd1306_getStartLine	4	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:157:9:ssd1306_init	8	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:163:9:ssd1306_128x64_init	8	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:185:9:ssd1306_128x64_i2c_init	8	static
+../Modules/Devices/SSD1306/lcd/oled_ssd1306.c:191:9:ssd1306_128x64_i2c_initEx	16	static

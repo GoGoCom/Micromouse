@@ -1,0 +1,6 @@
+../Modules/Devices/SSD1306/ssd1306_hal/stm32/platform.c:46:13:platform_i2c_start	1
+../Modules/Devices/SSD1306/ssd1306_hal/stm32/platform.c:51:13:platform_i2c_stop	1
+../Modules/Devices/SSD1306/ssd1306_hal/stm32/platform.c:76:13:platform_i2c_close	1
+../Modules/Devices/SSD1306/ssd1306_hal/stm32/platform.c:81:13:platform_i2c_send_buffer	2
+../Modules/Devices/SSD1306/ssd1306_hal/stm32/platform.c:96:6:ssd1306_platform_i2cInit	2
+../Modules/Devices/SSD1306/ssd1306_hal/stm32/platform.c:120:6:print_i2c_error	2

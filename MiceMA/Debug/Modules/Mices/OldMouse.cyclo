@@ -1,0 +1,11 @@
+../Modules/Mices/OldMouse.cpp:50:1:OldMouse::OldMouse(Simulation*)	1
+../Modules/Mices/OldMouse.cpp:57:1:OldMouse::~OldMouse()	1
+../Modules/Mices/OldMouse.cpp:57:1:virtual OldMouse::~OldMouse()	1
+../Modules/Mices/OldMouse.cpp:61:7:bool OldMouse::WalkToGoal()	1
+../Modules/Mices/OldMouse.cpp:65:7:bool OldMouse::RunToGoal()	1
+../Modules/Mices/OldMouse.cpp:69:6:bool OldMouse::FindGoal(bool)	4
+../Modules/Mices/OldMouse.cpp:122:6:bool OldMouse::StartToGoal(uint8_t)	4
+../Modules/Mices/OldMouse.cpp:155:6:bool OldMouse::GoalToStart(uint8_t)	4
+../Modules/Mices/OldMouse.cpp:181:6:int OldMouse::HowToGo(uint8_t*, uint8_t*, uint8_t*, bool)	10
+../Modules/Mices/OldMouse.cpp:280:9:uint8_t OldMouse::MoveAction(Queue*, uint8_t)	35
+../Modules/Mices/OldMouse.cpp:451:5:int OldMouse::Buildshortcut(Queue*, uint8_t*, uint8_t*, uint8_t, uint8_t, uint8_t, bool)	13

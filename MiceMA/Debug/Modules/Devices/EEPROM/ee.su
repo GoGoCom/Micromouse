@@ -1,0 +1,7 @@
+../Modules/Devices/EEPROM/ee.c:177:6:ee_init	8	static
+../Modules/Devices/EEPROM/ee.c:186:6:ee_format	40	static
+../Modules/Devices/EEPROM/ee.c:229:6:ee_read	32	static
+../Modules/Devices/EEPROM/ee.c:248:6:ee_write	40	static
+../Modules/Devices/EEPROM/ee.c:304:6:ee_writeToRam	24	static
+../Modules/Devices/EEPROM/ee.c:320:7:ee_commit	8	static
+../Modules/Devices/EEPROM/ee.c:331:11:ee_maxVirtualAddress	4	static

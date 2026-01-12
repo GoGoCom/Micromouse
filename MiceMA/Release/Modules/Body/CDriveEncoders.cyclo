@@ -1,0 +1,12 @@
+../Modules/Body/CDriveEncoders.cpp:18:1:CDriveEncoders::~CDriveEncoders()	1
+../Modules/Body/CDriveEncoders.cpp:18:1:virtual CDriveEncoders::~CDriveEncoders()	1
+../Modules/Body/CDriveEncoders.cpp:14:1:CDriveEncoders::CDriveEncoders()	1
+../Modules/Body/CDriveEncoders.cpp:30:6:void CDriveEncoders::reset_encoders()	1
+../Modules/Body/CDriveEncoders.cpp:22:6:void CDriveEncoders::init()	1
+../Modules/Body/CDriveEncoders.cpp:47:6:void CDriveEncoders::update_encoders()	1
+../Modules/Body/CDriveEncoders.cpp:77:7:float CDriveEncoders::robot_fwd_increment()	1
+../Modules/Body/CDriveEncoders.cpp:85:7:float CDriveEncoders::robot_rot_increment()	1
+../Modules/Body/CDriveEncoders.cpp:93:7:float CDriveEncoders::robot_position()	1
+../Modules/Body/CDriveEncoders.cpp:101:7:float CDriveEncoders::robot_angle()	1
+../Modules/Body/CDriveEncoders.cpp:110:9:int32_t CDriveEncoders::LEnc()	1
+../Modules/Body/CDriveEncoders.cpp:115:9:int32_t CDriveEncoders::REnc()	1

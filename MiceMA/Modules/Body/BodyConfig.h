@@ -1,0 +1,313 @@
+/*
+ * File: config.h
+ * Project: mazerunner
+ * File Created: Monday, 29th March 2021 11:04:59 pm
+ * Author: Peter Harrison
+ * -----
+ * Last Modified: Thursday, 6th May 2021 9:17:32 am
+ * Modified By: Peter Harrison
+ * -----
+ * MIT License
+ *
+ * Copyright (c) 2021 Peter Harrison
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is furnished to do
+ * so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#include "stm32f4xx_hal.h"
+
+
+// force rewrite of EEPROM settings. Set this when developing
+#define ALWAYS_USE_DEFAULT_SETTINGS 0
+//***************************************************************************//
+// USER_MODE tells the software whether to run the built-in tests or custom
+// user-provided routines. When set to false, execution is directed to the
+// function run_tests() in tests.cpp. this is the default and it is where all
+// the setup and configuration can be done.
+// when you are ready to try your own code, change the values of USER_MODE to be
+// true and execution will be directed to the function run_mouse() in user.cpp.
+// In that file you will find some examples that you can modify, extend or
+// replace as you see fit.
+
+const bool USER_MODE = true;
+
+//***************************************************************************//
+// We need to know about the drive mechanics.
+
+const float WHEEL_DIAMETER = 32.0f; // Adjust on test
+const float ENCODER_PULSES = 12.0f; // DC Motor
+const float GEAR_RATIO     = 51.45f; //
+
+// Mouse radius is the distance between the contact patches of the drive wheels.
+// A good starting approximation is half the distance between the wheel centres.
+// After testing, you may find the working value to be larger or smaller by some
+// small amount.
+const float MOUSE_RADIUS = 70.0f/2; // Adjust on test
+
+// The robot is likely to have wheels of different diameters and that must be
+// compensated for if the robot is to reliably drive in a straight line
+const float ROTATION_BIAS = 0.0025; // Negative makes robot curve to left
+
+//***************************************************************************//
+// For encoders
+
+#define PI          3.1415926535897932384626433832795
+
+// DC motor
+const float MM_PER_COUNT_LEFT     = (1 - ROTATION_BIAS) * PI * WHEEL_DIAMETER / (ENCODER_PULSES * GEAR_RATIO);
+const float MM_PER_COUNT_RIGHT    = (1 + ROTATION_BIAS) * PI * WHEEL_DIAMETER / (ENCODER_PULSES * GEAR_RATIO);
+const float DEG_PER_MM_DIFFERENCE = (180.0 / (2 * MOUSE_RADIUS * PI));
+
+// step motor
+//const int microSteps = 8;
+//const int stepsPerRotation = 200;
+
+//const float MM_PER_COUNT_LEFT  = (1 - ROTATION_BIAS) * PI * WHEEL_DIAMETER / (microSteps * stepsPerRotation);
+//const float MM_PER_COUNT_RIGHT = (1 + ROTATION_BIAS) * PI * WHEEL_DIAMETER / (microSteps * stepsPerRotation);
+
+
+//***************************************************************************//
+// Battery resistor bridge //Derek Hall//
+// The battery measurement is performed by first reducing the battery voltage
+// with a potential divider formed by two resistors. Here they are named R1 and R2
+// though that may not be their designation on the schematics.
+//
+// Resistor R1 is the high-side resistor and connects to the battery supply
+// Resistor R2 is the low-side resistor and connects to ground
+// Battery voltage is measured at the junction of these resistors
+// The ADC port used for the conversion will have a full scale reading (FSR) that
+// depends on the device being used. Typically that will be 1023 for a 10-bit ADC as
+// found on an Arduino but it may be 4095 if you have a 12-bit ADC.
+// Finally, the ADC converter on your processor will have a reference voltage. On
+// the Arduinos for example, this is 5 Volts. Thus, a full scale reading of
+// 1023 would represent 5 Volts, 511 would be 2.5Volts and so on.
+//
+// in this section you can enter the appropriate values for your ADC and potential
+// divider setup to ensure that the battery voltage reading performed by the sensors
+// is as accurate as possible.
+//
+// By calculating the battery multiplier here, you can be sure that the actual
+// battery voltage calulation is done as efficiently as possible.
+// The compiler will do all these calculations so your program does not have to.
+
+const float BATTERY_R1 = 18000.0; // resistor to battery +
+const float BATTERY_R2 = 10000.0; // resistor to Gnd
+const float BATTERY_DIVIDER_RATIO = BATTERY_R2 / (BATTERY_R1 + BATTERY_R2);
+const float ADC_FSR = 1023.0;    // The maximum reading for the ADC
+const float ADC_REF_VOLTS = 3.2f; // Reference voltage of ADC
+
+const float BATTERY_MULTIPLIER = (ADC_REF_VOLTS / ADC_FSR / BATTERY_DIVIDER_RATIO);
+
+//*** MOTION CONTROL CONSTANTS **********************************************//
+
+// forward motion controller constants
+const float FWD_KP = 2.0; //1.5; //2.0
+const float FWD_KD = 1.1;
+
+// rotation motion controller constants
+const float ROT_KP = 2.1; //1.6; // 2.1
+const float ROT_KD = 1.2;
+
+// controller constants for the steering controller
+const float STEERING_KP = 0.25; //2.5; //0.25;
+const float STEERING_KD = 0.00;
+const float STEERING_ADJUST_LIMIT = 10.0; // deg/s
+
+// Motor Feedforward
+/***
+ * Speed Feedforward is used to add a drive voltage proportional to the motor speed
+ * The units are Volts per mm/s and the value will be different for each
+ * robot where the motor + gearbox + wheel diamter + robot weight are different
+ * You can experimentally determine a suitable value by turning off the controller
+ * and then commanding a set voltage to the motors. The same voltage is applied to
+ * each motor. Have the robot report its speed regularly or have it measure
+ * its steady state speed after a period of acceleration.
+ * Do this for several applied voltages from 0.5Volts to 3 Volts in steps of 0.5V
+ * Plot a chart of steady state speed against voltage. The slope of that graph is
+ * the speed feedforward, SPEED_FF.
+ * Note that the line will not pass through the origin because there will be
+ * some minimum voltage needed just to ovecome friction and get the wheels to turn at all.
+ * That minimum voltage is the BIAS_FF. It is not dependent upon speed but is expressed
+ * here as a fraction for comparison.
+ */
+const float SPEED_FF = (1.0 / 280.0);
+const float BIAS_FF = (23.0 / 280.0);
+
+// encoder polarity is set to account for reversal of the encoder phases
+const int ENCODER_LEFT_POLARITY  = (-1);
+const int ENCODER_RIGHT_POLARITY = (-1);
+
+// similarly, the motors may be wired with different polarity and that
+// is defined here so that setting a positive voltage always moves the robot
+// forwards
+const int MOTOR_LEFT_POLARITY  = (+1);
+const int MOTOR_RIGHT_POLARITY = (-1);
+
+//***************************************************************************//
+
+
+
+//***** SENSOR CALIBRATION **************************************************//
+// wall sensor thresholds and constants
+// RAW values for the front sensor when the robot is backed up to a wall
+const int FRONT_CALIBRATION = 284; // 82; // 70;
+// RAW values for the side sensors when the robot is centred in a cell
+// and there is no wall ahead
+const int LEFT_CALIBRATION  = 170; //430; //97;112; // 97;
+const int RIGHT_CALIBRATION = 350; //430; //92;82; // 92;
+
+// This is the normalised value seen by the front sensor when the mouse is
+// in its calibration position
+const int LEFT_NOMINAL  = 100;
+const int FRONT_NOMINAL = 100;
+const int RIGHT_NOMINAL = 100;
+
+// Sensor brightness adjustment factor. The compiler calculates these so it saves processor time
+const float FRONT_SCALE = (float)FRONT_NOMINAL / FRONT_CALIBRATION;
+const float LEFT_SCALE  = (float)LEFT_NOMINAL  / LEFT_CALIBRATION;
+const float RIGHT_SCALE = (float)RIGHT_NOMINAL / RIGHT_CALIBRATION;
+
+// the values above which, a wall is seen
+const int LEFT_THRESHOLD  = 75;   // minimum value to register a wall 40
+const int FRONT_THRESHOLD = 130;  // minimum value to register a wall 20
+const int RIGHT_THRESHOLD = 140;  // minimum value to register a wall 40
+const int FRONT_REFERENCE = 550; // reading when mouse centered with wall ahead
+//***************************************************************************//
+//***************************************************************************//
+// Some physical constants that are likely to be board -specific
+
+// with robot against back wall, how much travel is there to the cell center?
+const int BACK_WALL_TO_CENTER  = 30;
+const int SENSING_POSITION_GAP = 10;
+
+//***************************************************************************//
+
+// Control loop timing. Pre-calculate to save time in interrupts
+const float LOOP_FREQUENCY = 500.0;
+const float LOOP_INTERVAL = (1.0 / LOOP_FREQUENCY);
+
+//***************************************************************************//
+// change the revision if the settings structure changes to force rewrte of EEPROM
+const int SETTINGS_REVISION = 107;
+//const uint32_t BAUDRATE = 115200;
+const int DEFAULT_DECIMAL_PLACES = 5;
+const int EEPROM_ADDR_SETTINGS = 0x0000;
+
+//***************************************************************************//
+// set this to zero to disable profile data logging over serial
+//#define DEBUG_LOGGING 0
+// time between logged lined when reporting is enabled (milliseconds)
+const int REPORTING_INTERVAL = 10;
+
+//***************************************************************************//
+const float MAX_MOTOR_VOLTS = 6.0f;
+
+// Define IO
+typedef struct
+{
+			GPIO_TypeDef * GPIOx;
+			uint16_t       EnablePin;
+			uint32_t       AdcChannel;
+} SensorCfg;
+
+const SensorCfg SensorCfgParam[4] =
+{
+		{
+				GPIOB,				// for Left Sensor
+				GPIO_PIN_5,
+				ADC_CHANNEL_2
+		},{
+				GPIOA,				// for Front Sensor
+				GPIO_PIN_11,
+				ADC_CHANNEL_3
+		},{
+				GPIOB,				// for right Sensor
+				GPIO_PIN_14,
+				ADC_CHANNEL_4
+		},{
+				GPIOA,
+				GPIO_PIN_5,
+				ADC_CHANNEL_5      // for Power level
+		}
+};
+
+typedef struct
+{
+			GPIO_TypeDef * MSGPIOx; // for Step motor
+			uint16_t       MSPin;   // for Step motor
+			GPIO_TypeDef * GPIOx;   // for Step motor
+			uint16_t       DirPin;  // for Step motor
+			uint16_t       StepPin; // for Step motor
+			TIM_TypeDef*   StepTIM_Instance; // for Step motor
+volatile	uint32_t*      PWM_TIM_CCRa; // PWM for DC Motor
+volatile	uint32_t*      PWM_TIM_CCRb; // PWM for DC Motor
+			TIM_TypeDef*   EncoderTIM_Instance; // for Encoder
+			uint32_t       TIM_CLK;
+} MotorCfg;
+
+const MotorCfg MotorCfgParam[2] =
+{
+    { // Left Step Motor Configurations
+		0UL, //GPIOC,
+		0,   //GPIO_PIN_14,
+		0UL, //GPIOB,
+		0,   //GPIO_PIN_4,
+		0,   //GPIO_PIN_5,
+		0UL, //TIM10,
+		&TIM3->CCR2, // backward
+		&TIM3->CCR1, // forward
+		TIM2,
+		10000000
+	},
+    { // Right Step Motor Configurations
+    	0UL, //GPIOC,
+    	0,   //GPIO_PIN_15,
+		0UL, //GPIOB,
+		0,   //GPIO_PIN_0,
+		0,   //GPIO_PIN_1,
+		0UL, //TIM11,
+		&TIM3->CCR3, // backward
+		&TIM3->CCR4, // forward
+		TIM5,
+		10000000
+	}
+};
+
+inline int Constrain(int val_IN, int val_MIN, int val_MAX)
+{
+    if(val_IN < val_MIN) return val_MIN;
+    else if (val_IN > val_MAX) return val_MAX;
+    	 else return val_IN;
+}
+
+inline float Constrainf(float val_IN, float val_MIN, float val_MAX)
+{
+    if(val_IN < val_MIN) return val_MIN;
+    else if (val_IN > val_MAX) return val_MAX;
+    	 else return val_IN;
+}
+
+#endif
+
+
+
+

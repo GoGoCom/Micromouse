@@ -1,0 +1,3 @@
+../Modules/Devices/SSD1306/lcd/lcd_common.c:46:6:ssd1306_configureI2cDisplay	0	static
+../Modules/Devices/SSD1306/lcd/lcd_common.c:63:6:ssd1306_setMode	0	static
+../Modules/Devices/SSD1306/lcd/lcd_common.c:71:6:ssd1306_resetController	0	static

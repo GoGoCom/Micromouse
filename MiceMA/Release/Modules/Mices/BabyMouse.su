@@ -1,0 +1,12 @@
+../Modules/Mices/BabyMouse.cpp:30:1:BabyMouse::~BabyMouse()	8	static
+../Modules/Mices/BabyMouse.cpp:30:1:virtual BabyMouse::~BabyMouse()	8	static
+../Modules/Mices/BabyMouse.cpp:24:1:BabyMouse::BabyMouse(Simulation*)	16	static
+../Modules/Mices/BabyMouse.cpp:209:9:uint8_t BabyMouse::MoveAction(Queue*, uint8_t)	40	static
+../Modules/Mices/BabyMouse.cpp:251:5:int BabyMouse::Buildshortcut(Queue*, uint8_t*, uint8_t*, uint8_t, uint8_t, uint8_t, bool)	64	static
+../Modules/Mices/BabyMouse.cpp:307:9:uint8_t BabyMouse::GetNextDirection(Node*, uint8_t, bool)	16	static
+../Modules/Mices/BabyMouse.cpp:140:6:int BabyMouse::HowToGo(uint8_t*, uint8_t*, uint8_t*, bool)	64	static
+../Modules/Mices/BabyMouse.cpp:91:6:bool BabyMouse::StartToGoal(uint8_t)	40	static
+../Modules/Mices/BabyMouse.cpp:117:6:bool BabyMouse::GoalToStart(uint8_t)	32	static
+../Modules/Mices/BabyMouse.cpp:42:6:bool BabyMouse::FindGoal(bool)	40	static
+../Modules/Mices/BabyMouse.cpp:34:7:bool BabyMouse::WalkToGoal()	0	static
+../Modules/Mices/BabyMouse.cpp:38:7:bool BabyMouse::RunToGoal()	0	static

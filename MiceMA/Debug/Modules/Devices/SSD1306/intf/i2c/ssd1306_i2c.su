@@ -1,0 +1,2 @@
+../Modules/Devices/SSD1306/intf/i2c/ssd1306_i2c.c:29:6:ssd1306_i2cInitEx	24	static
+../Modules/Devices/SSD1306/intf/i2c/ssd1306_i2c.c:37:6:ssd1306_i2cInit	8	static

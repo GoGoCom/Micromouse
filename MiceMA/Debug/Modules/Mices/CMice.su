@@ -1,0 +1,6 @@
+../Modules/Mices/CMice.cpp:14:1:CMice::CMice()	16	static
+../Modules/Mices/CMice.cpp:19:1:CMice::~CMice()	16	static
+../Modules/Mices/CMice.cpp:19:1:virtual CMice::~CMice()	16	static
+../Modules/Mices/CMice.cpp:23:6:void CMice::miceInit(Simulation*)	16	static
+../Modules/Mices/CMice.cpp:30:6:void CMice::miceReset()	16	static
+../Modules/Mices/CMice.cpp:36:6:void CMice::miceUpdate()	16	static

@@ -1,0 +1,5 @@
+../Modules/Brain/Nodes.cpp:18:1:Nodes::~Nodes()	0	static
+../Modules/Brain/Nodes.cpp:18:1:virtual Nodes::~Nodes()	8	static
+../Modules/Brain/Nodes.cpp:13:1:Nodes::Nodes()	0	static
+../Modules/Brain/Nodes.cpp:24:8:Node* Nodes::new_Node(uint8_t, uint8_t)	16	static
+../Modules/Brain/Nodes.cpp:59:6:void Nodes::delete_Node(Node**)	8	static

@@ -1,0 +1,22 @@
+C:/Users/apex6/Desktop/NewMiceRobots/MiceMA/Modules/Devices/SSD1306/ssd1306_hal/stm32/io.h:112:23:uint8_t pgm_read_byte(const void*)	1
+../Modules/Devices/SSD1306/nano_gfx.cpp:40:6:void NanoCanvas::putPixel(uint8_t, uint8_t)	4
+../Modules/Devices/SSD1306/nano_gfx.cpp:53:6:void NanoCanvas::drawHLine(uint8_t, uint8_t, uint8_t)	6
+../Modules/Devices/SSD1306/nano_gfx.cpp:63:6:void NanoCanvas::drawVLine(uint8_t, uint8_t, uint8_t)	6
+../Modules/Devices/SSD1306/nano_gfx.cpp:73:6:void NanoCanvas::drawRect(uint8_t, uint8_t, uint8_t, uint8_t)	1
+../Modules/Devices/SSD1306/nano_gfx.cpp:82:6:void NanoCanvas::fillRect(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)	14
+../Modules/Devices/SSD1306/nano_gfx.cpp:117:6:void NanoCanvas::clear()	1
+../Modules/Devices/SSD1306/nano_gfx.cpp:123:6:void NanoCanvas::charF6x8(uint8_t, uint8_t, const char*, EFontStyle)	8
+../Modules/Devices/SSD1306/nano_gfx.cpp:169:6:void NanoCanvas::charF12x16(uint8_t, uint8_t, const char*, EFontStyle)	17
+../Modules/Devices/SSD1306/nano_gfx.cpp:248:6:void NanoCanvas::printFixed(uint8_t, uint8_t, const char*, EFontStyle)	12
+../Modules/Devices/SSD1306/nano_gfx.cpp:325:6:void NanoCanvas::printFixed2x(uint8_t, uint8_t, const char*, EFontStyle)	18
+../Modules/Devices/SSD1306/nano_gfx.cpp:411:6:void NanoCanvas::drawSpritePgm(uint8_t, uint8_t, const uint8_t*)	5
+../Modules/Devices/SSD1306/nano_gfx.cpp:427:6:void NanoCanvas::drawBitmap(uint8_t, uint8_t, uint8_t, uint8_t, const uint8_t*)	6
+../Modules/Devices/SSD1306/nano_gfx.cpp:449:6:void NanoCanvas::drawSprite(uint8_t, uint8_t, const uint8_t*)	5
+../Modules/Devices/SSD1306/nano_gfx.cpp:464:6:void NanoCanvas::drawSprite(SPRITE*)	5
+../Modules/Devices/SSD1306/nano_gfx.cpp:478:6:void NanoCanvas::blt(uint8_t, uint8_t)	1
+../Modules/Devices/SSD1306/nano_gfx.cpp:483:6:void NanoCanvas::invert()	2
+../Modules/Devices/SSD1306/nano_gfx.cpp:489:6:void NanoCanvas::flipH()	3
+../Modules/Devices/SSD1306/nano_gfx.cpp:504:6:void SPRITE::setPos(uint8_t, uint8_t)	1
+../Modules/Devices/SSD1306/nano_gfx.cpp:510:6:void SPRITE::draw()	1
+../Modules/Devices/SSD1306/nano_gfx.cpp:515:6:void SPRITE::eraseTrace()	1
+../Modules/Devices/SSD1306/nano_gfx.cpp:520:6:void SPRITE::erase()	1
