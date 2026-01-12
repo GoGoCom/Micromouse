@@ -68,7 +68,7 @@ This is where the size of the stack and queue is determined based on the size of
 Generation-specific mice are pre-prepared and available for use upon request.
 
 | Description |
-||
+|-|
 | // Active mouse |
 | //BabyMouse      *mice =  &BDavid; |
 | //YoungMouse     *mice =  &YDavid; |
@@ -85,4 +85,4 @@ Generation-specific mice are pre-prepared and available for use upon request.
 
 ## Acknowledgments
 
-I would like to thank to Adam Li of adam2392, Peter Harrison of ukmars and Mack of mms for their contributions. 
+I would like to thank to Adam Li of adam2392, Peter Harrison of micromouseonline and Mack of mackorone for their contributions. 
