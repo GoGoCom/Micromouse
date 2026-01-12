@@ -36,6 +36,8 @@ Lidar sensor is option to measure a distace of front wall.
 
 This is where you set information related to the mouse body, such as the mouse size, wheel size, motor, sensor, encoder, etc.
 
+| Description |
+|-|
 | const float WHEEL_DIAMETER = 32.0f; // Adjust on test |
 | const float ENCODER_PULSES = 12.0f; // DC Motor       |
 | const float GEAR_RATIO     = 51.45f; //               |
@@ -46,6 +48,8 @@ This is where you set information related to the mouse body, such as the mouse s
 
 This is where you set information related to the mouse's brain, such as the size of the maze, the location of the goal, etc. You can also choose whether or not to simulate.
  
+| Description |
+|-|
 | #define SIMULATION  1 // 0 or 1 - simulation or not |
 ||
 | #define SIZE 16	// classic Size |
@@ -53,13 +57,15 @@ This is where you set information related to the mouse's brain, such as the size
 | #define GoalUpper  SIZE/2 |
 ||
 |#define SIZE 32		// Half Size |
-|#define GoalRight   20  // 2024 J |
+|#define GoalRight   20  // 2024 Japan |
 |#define GoalUpper   9 |
 
 * Buffers.h
 
 This is where the size of the stack and queue is determined based on the size of the maze
 
+| Description |
+|-|
 | #define STACKSIZE 8192 |
 | #define QUEUESIZE 512  |
 
