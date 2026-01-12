@@ -36,22 +36,22 @@ Lidar sensor is option to measure a distace of front wall.
 
 This is where you set information related to the mouse body, such as the mouse size, wheel size, motor, sensor, encoder, etc.
 
-const float WHEEL_DIAMETER = 32.0f; // Adjust on test
-const float ENCODER_PULSES = 12.0f; // DC Motor
-const float GEAR_RATIO     = 51.45f; //
+** const float WHEEL_DIAMETER = 32.0f; // Adjust on test
+** const float ENCODER_PULSES = 12.0f; // DC Motor
+** const float GEAR_RATIO     = 51.45f; //
 
-SensorCfg;
-MotorCfg;
+** SensorCfg;
+** MotorCfg;
 
 * BrainConfig.h
 
 This is where you set information related to the mouse's brain, such as the size of the maze, the location of the goal, etc. You can also choose whether or not to simulate.
  
- define SIMULATION  1 // 0 or 1 - simulation or not
+**  define SIMULATION  1 // 0 or 1 - simulation or not
 
- define SIZE 16	// Size of one dimention of Map
- define GoalRight  SIZE/2  // classic
- define GoalUpper  SIZE/2
+**  define SIZE 16	// Size of one dimention of Map
+**  define GoalRight  SIZE/2  // classic
+**  define GoalUpper  SIZE/2
 
 //#define SIZE 32		// Size of one dimension of Map
 //#define GoalRight   20  // 2024 J
@@ -61,19 +61,19 @@ This is where you set information related to the mouse's brain, such as the size
 
 This is where the size of the stack and queue is determined based on the size of the maze
 
- define STACKSIZE 8192 //4096
- define QUEUESIZE 1512 //512 //255  //1024
+**  define STACKSIZE 8192 //4096
+**  define QUEUESIZE 1512 //512 //255  //1024
 
 * main.cpp
 
 Generation-specific mice are pre-prepared and available for use upon request.
 
-// Active mouse
-//BabyMouse      *mice =  &BDavid;
-//YoungMouse     *mice =  &YDavid;
-AdultMouse     *mice =  &ADavid;
-//OldMouse       *mice =  &ODavid;
-//YoungAdultMouse  *mice =  &NDavid;
+** // Active mouse
+** //BabyMouse      *mice =  &BDavid;
+** //YoungMouse     *mice =  &YDavid;
+** AdultMouse     *mice =  &ADavid;
+** //OldMouse       *mice =  &ODavid;
+** //YoungAdultMouse  *mice =  &NDavid;
 
 ## Software tools
 STM32CubeIDE 1.19.0 for software, 
