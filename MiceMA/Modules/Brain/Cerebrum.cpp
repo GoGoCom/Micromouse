@@ -140,8 +140,8 @@ void Cerebrum::OptimizePath(void)  {
 			  if ( this_node->visited == false ) {
 				  for(k=0; k<4; k++) {
 					  if( (this_node->neighbours[k] != NULL) && ( this_node->neighbours[k]->visited == true ) ) {
-						  this_node->neighbours[ k ] = NULL;
 						  this_node->neighbours[ k ]->neighbours[ dir_info[k].opposite  ] = NULL;
+						  this_node->neighbours[ k ] = NULL;
 					  }
 				  }
 			  }
