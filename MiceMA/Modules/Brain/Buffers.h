@@ -21,7 +21,7 @@
 #define QPGI 1			// Queue Pointer Get Index
 #define QSI 0 			// Queue Size Index
 #define QUEUE_OFFSET 3
-#define QUEUESIZE 512 //255  //1024
+#define QUEUESIZE 500 
 
 typedef struct runInfo {
 	uint8_t distance;
