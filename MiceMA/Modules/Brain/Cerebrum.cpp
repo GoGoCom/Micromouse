@@ -2,8 +2,8 @@
  * Cerebrum.cpp
  *
  *  Created on: Feb 10, 2024
- *      Author: David(Yong eel) Lee
-*/
+ *      Author: apex6
+ */
 
 #include <Mouse.h>
 #include <BrainConfig.h>
@@ -75,10 +75,12 @@ void Cerebrum::print_map () {
 		for (j = 0; j < SIZE; ++j) {
 			sprintf(buf, "%3hd", mouse_maze->Block[i][j]->floodval);
 			  if( hSmp != NULL ) {
-				  for(k=0; k<4; k++)
+				  for(k=0; k<4; k++) {
 					  if( mouse_maze->Block[i][j]->neighbours[k] == NULL ) hSmp->setWall(i, j, dirc[k]);
-
+					  delay(1);
+				  }
 				  hSmp->setText(i, j, (char *) buf);
+				  delay(1);
 			  }
 		}
 	}

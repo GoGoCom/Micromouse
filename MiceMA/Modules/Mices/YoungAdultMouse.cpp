@@ -82,7 +82,7 @@ bool YoungAdultMouse::FindGoal ( bool mode ) {
 	  if( mode == false ) { // false - from searching, true - optimized path
 
 		// TRIP FROM START TO GOAL
-		printf("log Adult mouse goes to Goal position\n");
+		printf("log YoungAdult mouse goes to Goal position\n");
 		if( StartToGoal( NORTH ) == true ) {
 			printf("log go to Start position\n");
 			if(GoalToStart( mouse_direction ) ==  true ) {
@@ -170,7 +170,7 @@ bool YoungAdultMouse::GoalToStart( uint8_t startDir) {
 	OptimizePath(); // close the dead path
 
     GoalToStartReflooding(goal_x, goal_y );
-    print_map();
+    print_map(); // for debug test
 
     return true;
 }
