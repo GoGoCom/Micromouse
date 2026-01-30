@@ -30,6 +30,17 @@ Lidar sensor is option to measure a distace of front wall.
 ![](img/right.jpg)
 ![](img/back.jpg)
 
+## Simulation for Teensy 4.0 (400 Mhz) 
+
+I ran a simulation using the 400MHz Teensy 4.0 board, using the same concept applied to the STM32. It was amazing.
+Move the MouseModules module in the directory to the Arduino library for use.
+The mouse speed in the simulation needs an API to adjust based on the distance moved. Currently, the speed is automatically adjusted. This can be done by utilizing the forked mms source.
+I'm making a mouse using the Teensy 4.0 board, so I'll show you how it turns out.
+
+![](img/teensy40.jpg)
+
+[Simulation Video](https://youtu.be/x_-rr58b5PM)
+ 
 ## Usage
 
 * BodyConfig.h
@@ -86,6 +97,7 @@ Generation-specific mice are pre-prepared and available for use upon request.
 | Tool | version | description |
 |-|-|-|
 | STM32CubeIDE | 1.19.0 | software |
+| Arduino IDE | 2.3.7 | software |
 | QT Creator | 17.0.2 | simulation |
 | Autodesk Eagle | 9.6.2 | hardware |
 
