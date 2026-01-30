@@ -37,7 +37,7 @@ Move the MouseModules module in the directory to the Arduino library for use.
 The mouse speed in the simulation needs an API to adjust based on the distance moved. Currently, the speed is automatically adjusted. This can be done by utilizing the forked mms source.
 I'm making a mouse using the Teensy 4.0 board, so I'll show you how it turns out.
 
-![](img/teensy40.jpg)
+![](img/Teensy40.jpg)
 
 [Simulation Video](https://youtu.be/x_-rr58b5PM)
  
