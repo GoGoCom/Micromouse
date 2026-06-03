@@ -1,0 +1,335 @@
+
+<style>
+  h2.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  .sim-wrap{padding:1rem 0;font-family:var(--font-sans)}
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:1rem}
+  .ctrl-group{display:flex;align-items:center;gap:8px}
+  .ctrl-group label{font-size:13px;color:var(--color-text-secondary)}
+  select,button{font-size:13px}
+  button.primary{background:var(--color-text-primary);color:var(--color-background-primary);border:none;padding:7px 16px;border-radius:var(--border-radius-md);cursor:pointer;font-weight:500}
+  button.secondary{background:transparent;border:0.5px solid var(--color-border-secondary);padding:7px 14px;border-radius:var(--border-radius-md);cursor:pointer;color:var(--color-text-primary)}
+  button:disabled{opacity:0.4;cursor:not-allowed}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1rem}
+  .stat-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px}
+  .stat-card .lbl{font-size:11px;color:var(--color-text-secondary);margin-bottom:4px}
+  .stat-card .val{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+  canvas{display:block;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);width:100%;image-rendering:pixelated}
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+  .leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary)}
+  .leg-dot{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+  .log{margin-top:10px;font-size:12px;color:var(--color-text-secondary);min-height:20px;font-family:var(--font-mono)}
+</style>
+
+<div class="sim-wrap">
+  <h2 class="sr-only">Interactive Micromouse maze simulation with selectable search algorithms</h2>
+
+  <div class="controls">
+    <div class="ctrl-group">
+      <label>Algorithm</label>
+      <select id="algoSel">
+        <option value="flood">Flood-fill</option>
+        <option value="dfs">Depth-first search</option>
+        <option value="bfs">Breadth-first search</option>
+        <option value="astar">A* (Manhattan)</option>
+      </select>
+    </div>
+    <div class="ctrl-group">
+      <label>Size</label>
+      <select id="sizeSel">
+        <option value="8">8 × 8</option>
+        <option value="12">12 × 12</option>
+        <option value="16" selected>16 × 16</option>
+      </select>
+    </div>
+    <div class="ctrl-group">
+      <label>Speed</label>
+      <input type="range" id="speedSlider" min="1" max="100" value="60" style="width:80px">
+    </div>
+    <button class="primary" id="startBtn">▶ Start</button>
+    <button class="secondary" id="resetBtn">↺ Reset</button>
+    <button class="secondary" id="genBtn">New Maze</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card"><div class="lbl">Cells visited</div><div class="val" id="sVisited">0</div></div>
+    <div class="stat-card"><div class="lbl">Steps taken</div><div class="val" id="sSteps">0</div></div>
+    <div class="stat-card"><div class="lbl">Path length</div><div class="val" id="sPath">—</div></div>
+    <div class="stat-card"><div class="lbl">Status</div><div class="val" id="sStatus" style="font-size:13px;padding-top:3px">Idle</div></div>
+  </div>
+
+  <canvas id="mazeCanvas" height="480"></canvas>
+
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#378ADD"></div>Mouse (current)</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#1D9E75"></div>Goal</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#AFA9EC"></div>Visited</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#EF9F27"></div>Final path</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#F09595"></div>Frontier</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--color-background-secondary)"></div>Unvisited</div>
+  </div>
+
+  <div class="log" id="logLine">Press "Start" to begin the simulation.</div>
+</div>
+
+<script>
+const canvas = document.getElementById('mazeCanvas');
+const ctx = canvas.getContext('2d');
+
+let N = 16, cells, walls, visited, parent, frontier, path, running, timer, steps, goalR, goalC, mouseR, mouseC, phase;
+
+function rnd(max){return Math.floor(Math.random()*max)}
+
+function genMaze(n){
+  N = n;
+  cells = Array.from({length:N},()=>new Array(N).fill(0));
+  walls = {h:Array.from({length:N+1},()=>new Array(N).fill(1)), v:Array.from({length:N},()=>new Array(N+1).fill(1))};
+  const vis2 = Array.from({length:N},()=>new Array(N).fill(false));
+  function dfs2(r,c){
+    vis2[r][c]=true;
+    const dirs=[[0,1],[1,0],[0,-1],[-1,0]].sort(()=>Math.random()-0.5);
+    for(const [dr,dc] of dirs){
+      const nr=r+dr,nc=c+dc;
+      if(nr>=0&&nr<N&&nc>=0&&nc<N&&!vis2[nr][nc]){
+        if(dr===1) walls.h[r+1][c]=0;
+        else if(dr===-1) walls.h[r][c]=0;
+        else if(dc===1) walls.v[r][c+1]=0;
+        else walls.v[r][c]=0;
+        dfs2(nr,nc);
+      }
+    }
+  }
+  dfs2(0,0);
+  // Extra passages for multiple paths
+  for(let i=0;i<Math.floor(N*N*0.12);i++){
+    const r=rnd(N),c=rnd(N);
+    if(Math.random()<0.5&&r<N-1) walls.h[r+1][c]=0;
+    else if(c<N-1) walls.v[r][c+1]=0;
+  }
+}
+
+function resetSim(){
+  clearInterval(timer); running=false;
+  visited=Array.from({length:N},()=>new Array(N).fill(false));
+  parent=Array.from({length:N},()=>new Array(N).fill(null));
+  frontier=[];
+  path=[];
+  steps=0; phase='search';
+  mouseR=0; mouseC=0;
+  goalR=Math.floor(N/2)-1+(N%2); goalC=Math.floor(N/2)-1+(N%2);
+  document.getElementById('sVisited').textContent='0';
+  document.getElementById('sSteps').textContent='0';
+  document.getElementById('sPath').textContent='—';
+  document.getElementById('sStatus').textContent='Ready';
+  document.getElementById('logLine').textContent='Press "Start" to begin.';
+  document.getElementById('startBtn').disabled=false;
+  draw();
+}
+
+function neighbors(r,c){
+  const res=[];
+  if(r>0&&!walls.h[r][c]) res.push([r-1,c]);
+  if(r<N-1&&!walls.h[r+1][c]) res.push([r+1,c]);
+  if(c>0&&!walls.v[r][c]) res.push([r,c-1]);
+  if(c<N-1&&!walls.v[r][c+1]) res.push([r,c+1]);
+  return res;
+}
+
+let floodDist, floodFrontier;
+function initFlood(){
+  floodDist=Array.from({length:N},()=>new Array(N).fill(9999));
+  floodDist[goalR][goalC]=0;
+  floodFrontier=[[goalR,goalC]];
+  // pre-compute distances
+  while(floodFrontier.length){
+    const [r,c]=floodFrontier.shift();
+    for(const [nr,nc] of neighbors(r,c)){
+      if(floodDist[nr][nc]===9999){floodDist[nr][nc]=floodDist[r][c]+1;floodFrontier.push([nr,nc]);}
+    }
+  }
+}
+
+function getColor(isDark){return isDark?'#111':'#fff'}
+let darkMode=window.matchMedia('(prefers-color-scheme:dark)').matches;
+window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',e=>{darkMode=e.matches;draw();});
+
+const CELL_VISITED='#AFA9EC',CELL_FRONTIER='#F09595',CELL_PATH='#EF9F27',CELL_GOAL='#1D9E75',CELL_MOUSE='#378ADD';
+
+function draw(){
+  const W=canvas.offsetWidth||640;
+  canvas.width=W; canvas.height=W;
+  const cs=W/N;
+  const bg=darkMode?'#1a1a1a':'#f7f7f5';
+  const wallCol=darkMode?'#444':'#222';
+  const unvisCol=darkMode?'#2a2a2a':'#f0ede8';
+
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,W);
+
+  for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+    const x=c*cs,y=r*cs;
+    let fill=unvisCol;
+    if(path.some(p=>p[0]===r&&p[1]===c)) fill=CELL_PATH;
+    else if(r===mouseR&&c===mouseC) fill=CELL_MOUSE;
+    else if(r===goalR&&c===goalC) fill=CELL_GOAL;
+    else if(frontier.some(p=>p[0]===r&&p[1]===c)) fill=CELL_FRONTIER;
+    else if(visited[r][c]) fill=CELL_VISITED;
+    ctx.fillStyle=fill; ctx.fillRect(x+1,y+1,cs-2,cs-2);
+  }
+
+  // flood heat map
+  const algo=document.getElementById('algoSel').value;
+  if(algo==='flood'&&floodDist&&phase==='search'){
+    for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+      if(!visited[r][c]&&!(r===goalR&&c===goalC)){
+        const d=floodDist[r][c];
+        if(d<9999){
+          const x=c*cs+cs/2-10,y=r*cs+cs/2-7;
+          ctx.fillStyle=darkMode?'rgba(255,255,255,0.18)':'rgba(0,0,0,0.22)';
+          ctx.font=`${Math.max(8,Math.floor(cs*0.38))}px var(--font-mono,monospace)`;
+          ctx.textAlign='center'; ctx.textBaseline='middle';
+          ctx.fillText(d,c*cs+cs/2,r*cs+cs/2);
+        }
+      }
+    }
+  }
+
+  ctx.strokeStyle=wallCol; ctx.lineWidth=1.5;
+  for(let r=0;r<=N;r++) for(let c=0;c<N;c++){
+    if(walls.h[r][c]){ctx.beginPath();ctx.moveTo(c*cs,r*cs);ctx.lineTo((c+1)*cs,r*cs);ctx.stroke();}
+  }
+  for(let r=0;r<N;r++) for(let c=0;c<=N;c++){
+    if(walls.v[r][c]){ctx.beginPath();ctx.moveTo(c*cs,r*cs);ctx.lineTo(c*cs,(r+1)*cs);ctx.stroke();}
+  }
+
+  // Mouse icon
+  const mx=(mouseC+0.5)*cs, my=(mouseR+0.5)*cs, rad=cs*0.32;
+  ctx.fillStyle=CELL_MOUSE;
+  ctx.beginPath();ctx.arc(mx,my,rad,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';
+  ctx.beginPath();ctx.arc(mx-rad*0.32,my-rad*0.22,rad*0.22,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.arc(mx+rad*0.32,my-rad*0.22,rad*0.22,0,Math.PI*2);ctx.fill();
+}
+
+let stepQueue=[];
+function buildSearchQueue(){
+  const algo=document.getElementById('algoSel').value;
+  stepQueue=[];
+  const visLocal=Array.from({length:N},()=>new Array(N).fill(false));
+  const par=Array.from({length:N},()=>new Array(N).fill(null));
+  if(algo==='dfs'){
+    const stack=[[0,0]]; visLocal[0][0]=true;
+    while(stack.length){
+      const [r,c]=stack[stack.length-1]; stack.pop();
+      stepQueue.push({type:'visit',r,c});
+      if(r===goalR&&c===goalC) break;
+      const nb=neighbors(r,c).filter(([nr,nc])=>!visLocal[nr][nc]);
+      nb.sort(()=>Math.random()-0.5);
+      for(const [nr,nc] of nb){visLocal[nr][nc]=true;par[nr][nc]=[r,c];stack.push([nr,nc]);}
+    }
+  } else if(algo==='bfs'){
+    const q=[[0,0]]; visLocal[0][0]=true;
+    while(q.length){
+      const [r,c]=q.shift();
+      stepQueue.push({type:'visit',r,c});
+      if(r===goalR&&c===goalC) break;
+      for(const [nr,nc] of neighbors(r,c)){
+        if(!visLocal[nr][nc]){visLocal[nr][nc]=true;par[nr][nc]=[r,c];q.push([nr,nc]);stepQueue.push({type:'frontier',r:nr,c:nc});}
+      }
+    }
+  } else if(algo==='astar'){
+    const h=(r,c)=>Math.abs(r-goalR)+Math.abs(c-goalC);
+    const g=Array.from({length:N},()=>new Array(N).fill(9999));
+    g[0][0]=0;
+    const open=[[h(0,0),0,0]];
+    const inOpen=Array.from({length:N},()=>new Array(N).fill(false));
+    inOpen[0][0]=true;
+    while(open.length){
+      open.sort((a,b)=>a[0]-b[0]);
+      const [f,r,c]=open.shift(); visLocal[r][c]=true;
+      stepQueue.push({type:'visit',r,c});
+      if(r===goalR&&c===goalC) break;
+      for(const [nr,nc] of neighbors(r,c)){
+        if(!visLocal[nr][nc]){
+          const ng=g[r][c]+1;
+          if(ng<g[nr][nc]){g[nr][nc]=ng;par[nr][nc]=[r,c];open.push([ng+h(nr,nc),nr,nc]);stepQueue.push({type:'frontier',r:nr,c:nc});}
+        }
+      }
+    }
+  } else { // flood-fill
+    initFlood();
+    let r=0,c=0;
+    for(let i=0;i<N*N*3;i++){
+      stepQueue.push({type:'visit',r,c});
+      if(r===goalR&&c===goalC) break;
+      par[r][c]=par[r][c]||null;
+      const nb=neighbors(r,c).sort((a,b)=>floodDist[a[0]][a[1]]-floodDist[b[0]][b[1]]);
+      const [nr,nc]=nb[0];
+      if(!par[nr][nc]&&!(nr===0&&nc===0)) par[nr][nc]=[r,c];
+      r=nr;c=nc;
+    }
+  }
+  // Build path
+  let pr=goalR,pc=goalC;
+  const pathArr=[];
+  while(pr!==null&&!(pr===0&&pc===0&&pathArr.length>0)){
+    pathArr.unshift([pr,pc]);
+    const p=par[pr][pc]; if(!p) break; [pr,pc]=p;
+  }
+  pathArr.unshift([0,0]);
+  stepQueue.push({type:'path',path:pathArr});
+  return par;
+}
+
+function startSim(){
+  const algo=document.getElementById('algoSel').value;
+  resetSim();
+  if(algo==='flood') initFlood();
+  buildSearchQueue();
+  running=true; phase='search';
+  document.getElementById('startBtn').disabled=true;
+  document.getElementById('sStatus').textContent='Searching…';
+  let qi=0;
+  function tick(){
+    if(!running) return;
+    const speed=parseInt(document.getElementById('speedSlider').value);
+    const batchSize=Math.ceil(speed/10);
+    for(let b=0;b<batchSize&&qi<stepQueue.length;b++,qi++){
+      const s=stepQueue[qi];
+      if(s.type==='visit'){
+        visited[s.r][s.c]=true; mouseR=s.r; mouseC=s.c;
+        frontier=frontier.filter(p=>!(p[0]===s.r&&p[1]===s.c));
+        steps++;
+        let vc=0; for(let r=0;r<N;r++) for(let c=0;c<N;c++) if(visited[r][c]) vc++;
+        document.getElementById('sVisited').textContent=vc;
+        document.getElementById('sSteps').textContent=steps;
+      } else if(s.type==='frontier'){
+        frontier.push([s.r,s.c]);
+      } else if(s.type==='path'){
+        path=s.path; phase='done';
+        document.getElementById('sPath').textContent=s.path.length;
+        document.getElementById('sStatus').textContent='Done ✓';
+        document.getElementById('logLine').textContent=`Path found: ${s.path.length} cells. Visited ${document.getElementById('sVisited').textContent} cells total.`;
+        running=false;
+      }
+    }
+    draw();
+    if(running) timer=requestAnimationFrame(tick);
+  }
+  timer=requestAnimationFrame(tick);
+}
+
+document.getElementById('startBtn').addEventListener('click',startSim);
+document.getElementById('resetBtn').addEventListener('click',()=>{clearInterval(timer);running=false;resetSim();});
+document.getElementById('genBtn').addEventListener('click',()=>{
+  clearInterval(timer);running=false;
+  genMaze(parseInt(document.getElementById('sizeSel').value));
+  resetSim();
+});
+document.getElementById('sizeSel').addEventListener('change',()=>{
+  clearInterval(timer);running=false;
+  genMaze(parseInt(document.getElementById('sizeSel').value));
+  resetSim();
+});
+window.addEventListener('resize',draw);
+
+genMaze(16); resetSim();
+</script>
