@@ -58,7 +58,6 @@ void Cerebellum::update_sensors() {
  * @brief Reset profiles, counters and controllers. Motors off. Steering off.
  */
 
-
 void Cerebellum::TestMoving(Simulation *simp) {
 
 	  hsmp = simp;
@@ -68,10 +67,59 @@ void Cerebellum::TestMoving(Simulation *simp) {
 	  moveFullForward(1);
 	  turnLeft90();
 	  turnRight90();
-	  smoothLeft90();
-	  smoothTurnBack();
+	  moveFullForward(1);
+	  turnBack();
+	  moveFullForward(1);
 
 	  delay(1);
+
+	  pBody->reset_motor_controllers();
+
+}
+
+
+void Cerebellum::TestAngleMoving(Simulation *simp) {
+
+	  hsmp = simp;
+
+	  pBody->start_motor_controllers();
+
+	  moveFullForward(1);
+	  turnLeft90();
+	  moveHalfForward(1);
+	  turnRight45();
+	  moveEdgeForward(1);
+	  turnRight45();
+	  moveHalfForward(1);
+	  turnRight90();
+	  moveFullForward(1);
+	  turnRight90();
+	  moveFullForward(1);
+	  turnBack();
+
+	  pBody->reset_motor_controllers();
+
+}
+
+void Cerebellum::TestSmoothingMoving(Simulation *simp) {
+
+	  hsmp = simp;
+
+	  pBody->start_motor_controllers();
+
+	  smoothLeft90();
+	  smoothLeft90();
+	  smoothLeft90();
+	  smoothLeft90();
+
+	  smoothFullForward(1);
+	  smoothRight90();
+	  smoothRight90();
+	  smoothFullForward(1);
+	  smoothRight90();
+	  smoothRight90();
+	  smoothTurnBack();
+	  end_run();
 
 	  pBody->reset_motor_controllers();
 
@@ -94,7 +142,8 @@ void Cerebellum::stop_at(float position) {
 	  float remaining = position - pBody->objMindForward.position();
 	  pBody->objMindForward.start(remaining, pBody->objMindForward.speed(), 0, pBody->objMindForward.acceleration());
 	  while (not pBody->objMindForward.is_finished()) {
-		  pBody->objMouth.report_profile();
+		  //pBody->objMouth.report_profile();
+		  delay(2);
 	  }
 }
 
@@ -116,7 +165,8 @@ void Cerebellum::stop_after(float distance) {
 	// write code here what you need
 	pBody->objMindForward.start(distance, pBody->objMindForward.speed(), 0, pBody->objMindForward.acceleration());
 	while (not pBody->objMindForward.is_finished()) {
-		pBody->objMouth.report_profile();
+		//pBody->objMouth.report_profile();
+		delay(2);
 	}
 }
 
@@ -249,7 +299,7 @@ void Cerebellum::turn(float angle, float omega, float alpha) {
 	pBody->objMindRotation.reset();
 	pBody->objMindRotation.start(angle, omega, 0, alpha);
 	while (not pBody->objMindRotation.is_finished()) {
-		pBody->objMouth.report_profile();
+		//pBody->objMouth.report_profile();
 		delay(2);
 	}
 }
@@ -340,7 +390,7 @@ void Cerebellum::moveSub(int mode, short length){
 
 	pBody->objMindForward.start(distance, top_speed, end_speed, acceleration);
 	while (not pBody->objMindForward.is_finished()) {
-	//	pBody->objMouth.report_profile();
+		//pBody->objMouth.report_profile();
 		delay(2);
 	}
 }
@@ -388,12 +438,15 @@ void Cerebellum::smoothSub(int mode) {
 	  float espeed  = TurnParms[mode].final_speed;
 	  float accel   = TurnParms[mode].acceleration;
 
-	  float distance = FULL_CELL + 10 + run_in - pBody->objMindForward.position();
+	  float distance ;
 
-	  if( pBody->objMindForward.speed() == 0 )
+	  if( pBody->objMindForward.speed() == 0 ) {
+		  distance =  run_in ;
 		  pBody->objMindForward.start(distance, tspeed, espeed, accel );
-	  else
+	  } else {
+		  distance =  FULL_CELL - pBody->objMindForward.position() + run_in;
 		  pBody->objMindForward.start(distance, pBody->objMindForward.speed(), espeed, accel );
+	  }
 
 	  while (not pBody->objMindForward.is_finished()) {
 		//pBody->objMouth.report_profile();
@@ -401,17 +454,20 @@ void Cerebellum::smoothSub(int mode) {
 	    	pBody->objMindForward.set_state(CS_FINISHED);
 	    }
 	  }
+
 	  pBody->objMindRotation.start(angle, omega, 0, alpha);
 	  while (not pBody->objMindRotation.is_finished()) {
 	    //pBody->objMouth.report_profile();
-	      delay(2);
+	    delay(2);
 
 	  }
+
 	  pBody->objMindForward.start(run_out, pBody->objMindForward.speed(), espeed, accel );
 	  while (not pBody->objMindForward.is_finished()) {
-		 // pBody->objMouth.report_profile();
-	      delay(2);
+		//pBody->objMouth.report_profile();
+	    delay(2);
 	  }
+
 	  pBody->objMindForward.set_position(FULL_CELL - SENSING_POSITION_GAP);
 }
 
@@ -453,9 +509,15 @@ void Cerebellum::smoothTurnBack(void) {
 
 	  pBody->objEyes.disable_steering();
 
-	  float remaining = (FULL_CELL + HALF_CELL) - pBody->objMindForward.position() ;
+	  float remaining ;
 
-	  pBody->objMindForward.start(remaining, pBody->objMindForward.speed(), 30.0f, pBody->objMindForward.acceleration());
+	  if( pBody->objMindForward.speed() == 0 ) {
+		  remaining = HALF_CELL ;
+		  pBody->objMindForward.start(remaining, tspeed, 30.0f, accel );
+	  } else {
+	      remaining = HALF_CELL + (FULL_CELL - pBody->objMindForward.position());
+		  pBody->objMindForward.start(remaining, pBody->objMindForward.speed(), 30.0f, pBody->objMindForward.acceleration());
+	  }
 	  if (has_wall) {
 	    while (pBody->objEyes.get_front_sensor() < FRONT_REFERENCE) {
 	      delay(2);
@@ -470,12 +532,12 @@ void Cerebellum::smoothTurnBack(void) {
 
 	  spin_turn(angle, omega, alpha);
 
-	  pBody->objMindForward.start(HALF_CELL - SENSING_POSITION_GAP, tspeed, espeed, accel); // ? 0.0f -> speed
+	  pBody->objMindForward.start(HALF_CELL - SENSING_POSITION_GAP , tspeed, espeed, accel); // stop and thinking
 	  while (not pBody->objMindForward.is_finished()) {
 	    delay(2);
 	  }
 
-	  pBody->objMindForward.set_position(FULL_CELL  - SENSING_POSITION_GAP); // - remaining
+	  pBody->objMindForward.set_position(FULL_CELL  - SENSING_POSITION_GAP ); // - remaining
 #endif
 }
 
@@ -487,21 +549,19 @@ void Cerebellum::smoothFullForward(short length) {
 	// write code here what you need
 	pBody->objEyes.enable_steering();
 
-	float distance     = TurnParms[A_moveFullForward].distance * length - SENSING_POSITION_GAP;
-	float top_speed    = TurnParms[A_moveFullForward].top_speed;
-	float end_speed    = TurnParms[A_moveFullForward].final_speed;
-	float acceleration = TurnParms[A_moveFullForward].acceleration;
+	float distance     = TurnParms[A_smoothFullForward].distance * length - SENSING_POSITION_GAP ; // 8
+	float top_speed    = TurnParms[A_smoothFullForward].top_speed; // * 1.8f;
+	float end_speed    = TurnParms[A_smoothFullForward].final_speed; // * 1.0f;
+	float acceleration = TurnParms[A_smoothFullForward].acceleration; // * 1.5f;
 
 	pBody->objMindForward.start(distance, top_speed, end_speed, acceleration);
 	while (not pBody->objMindForward.is_finished()) {
-		//pBody->objMouth.report_encoders();
+		//pBody->objMouth.report_profile();
 		if (pBody->objEyes.front_wall_sensor > FRONT_THRESHOLD) {
 			pBody->objMindForward.set_state(CS_FINISHED);
 		}
 	}
-	pBody->objMindForward.set_position(FULL_CELL-SENSING_POSITION_GAP);
-	// pBody->objMindForward.adjust_position(FULL_CELL-10);
-	// wait_until_position(FULL_CELL - 10.0);
+	pBody->objMindForward.set_position(FULL_CELL-SENSING_POSITION_GAP ); // 8
 
 #endif
 }

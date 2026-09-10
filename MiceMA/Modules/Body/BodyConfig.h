@@ -55,13 +55,13 @@ const bool USER_MODE = true;
 
 const float WHEEL_DIAMETER = 32.0f; // Adjust on test
 const float ENCODER_PULSES = 12.0f; // DC Motor
-const float GEAR_RATIO     = 51.45f; //
+const float GEAR_RATIO     = 51.45; //29.86f; //51.45f; // 15.25f;
 
 // Mouse radius is the distance between the contact patches of the drive wheels.
 // A good starting approximation is half the distance between the wheel centres.
 // After testing, you may find the working value to be larger or smaller by some
 // small amount.
-const float MOUSE_RADIUS = 70.0f/2; // Adjust on test
+const float MOUSE_RADIUS = 69.5f/2; // Adjust on test
 
 // The robot is likely to have wheels of different diameters and that must be
 // compensated for if the robot is to reliably drive in a straight line
@@ -159,7 +159,7 @@ const int ENCODER_RIGHT_POLARITY = (-1);
 // similarly, the motors may be wired with different polarity and that
 // is defined here so that setting a positive voltage always moves the robot
 // forwards
-const int MOTOR_LEFT_POLARITY  = (+1);
+const int MOTOR_LEFT_POLARITY  = (1);
 const int MOTOR_RIGHT_POLARITY = (-1);
 
 //***************************************************************************//
@@ -172,7 +172,7 @@ const int MOTOR_RIGHT_POLARITY = (-1);
 const int FRONT_CALIBRATION = 284; // 82; // 70;
 // RAW values for the side sensors when the robot is centred in a cell
 // and there is no wall ahead
-const int LEFT_CALIBRATION  = 170; //430; //97;112; // 97;
+const int LEFT_CALIBRATION  = 350; //430; //97;112; // 97;
 const int RIGHT_CALIBRATION = 350; //430; //92;82; // 92;
 
 // This is the normalised value seen by the front sensor when the mouse is
@@ -187,7 +187,7 @@ const float LEFT_SCALE  = (float)LEFT_NOMINAL  / LEFT_CALIBRATION;
 const float RIGHT_SCALE = (float)RIGHT_NOMINAL / RIGHT_CALIBRATION;
 
 // the values above which, a wall is seen
-const int LEFT_THRESHOLD  = 75;   // minimum value to register a wall 40
+const int LEFT_THRESHOLD  = 140;  // minimum value to register a wall 40
 const int FRONT_THRESHOLD = 130;  // minimum value to register a wall 20
 const int RIGHT_THRESHOLD = 140;  // minimum value to register a wall 40
 const int FRONT_REFERENCE = 550; // reading when mouse centered with wall ahead

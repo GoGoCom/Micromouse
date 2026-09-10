@@ -11,17 +11,17 @@
 
 #define SIMULATION  0
 
-/*
+
 #define SIZE 6	// Size of one dimention of Map
 
 #define GoalRight  5  // training
 #define GoalUpper  3
-*/
 
-#define SIZE 16	// Size of one dimention of Map
 
-#define GoalRight  SIZE/2  // classic
-#define GoalUpper  SIZE/2
+//#define SIZE 16	// Size of one dimention of Map
+
+//#define GoalRight  SIZE/2  // classic
+//#define GoalUpper  SIZE/2
 
 //#define SIZE 32		// Size of one dimension of Map
 
@@ -101,10 +101,10 @@ const float DIAG_CELL = sqrt(HALF_CELL*HALF_CELL+HALF_CELL*HALF_CELL);
 // search and run speeds in mm/s and mm - 300, 400, 800, 2000
 const float DEFAULT_TURN_SPEED     = 300;
 const float DEFAULT_EXPLORE_SPEED  = 400;
-const float DEFAULT_SMOOTH_SPEED   = DEFAULT_TURN_SPEED * 0.8f;
+const float DEFAULT_SMOOTH_SPEED   = 200; //DEFAULT_TURN_SPEED * 0.8f;
 const float DEFAULT_TURN_ACCEL     = 1000;
 const float DEFAULT_EXPLORE_ACCEL  = 2000;
-const float DEFAULT_SMOOTH_ACCEL   = DEFAULT_TURN_ACCEL * 2.0f;
+const float DEFAULT_SMOOTH_ACCEL   = DEFAULT_TURN_ACCEL; // * 2.0f;
 //***************************************************************************//
 const float SPEED_RATE               = 1.0f;
 const float SPEEDMAX_EXPLORE         = DEFAULT_EXPLORE_SPEED  * SPEED_RATE;
@@ -224,10 +224,10 @@ const TurnParameter TurnParms[12] =
 		 0.0f, 0.0f, 0.0f, FULL_CELL, SPEEDMAX_EXPLORE, 0.0f, EXPLORE_ACCELERATION, 0.0f, 0.0f
 	},
 	{ // A_smoothLeft90,
-		  90.0f, SPEEDMAX_SMOOTH_TURN, SMOOTH_TURN_ACCELERATION, 0.0f, SPEEDMAX_EXPLORE, SPEEDMAX_EXPLORE, EXPLORE_ACCELERATION, 15.0f, 10.0f
+		  90.0f, SPEEDMAX_SMOOTH_TURN, SMOOTH_TURN_ACCELERATION, 0.0f, SPEEDMAX_EXPLORE, SPEEDMAX_EXPLORE, EXPLORE_ACCELERATION, 10.0f, 5.0f
 	},
 	{ // A_smoothRight90,
-		 -90.0f, SPEEDMAX_SMOOTH_TURN, SMOOTH_TURN_ACCELERATION, 0.0f, SPEEDMAX_EXPLORE, SPEEDMAX_EXPLORE, EXPLORE_ACCELERATION, 15.0f, 10.0f
+		 -90.0f, SPEEDMAX_SMOOTH_TURN, SMOOTH_TURN_ACCELERATION, 0.0f, SPEEDMAX_EXPLORE, SPEEDMAX_EXPLORE, EXPLORE_ACCELERATION, 10.0f, 5.0f
 	},
 	{ // smoothTurnBack,
 	    -180.0f, SPEEDMAX_SMOOTH_TURN, SMOOTH_TURN_ACCELERATION, 0.0f, SPEEDMAX_EXPLORE, SPEEDMAX_EXPLORE, EXPLORE_ACCELERATION, 0.0f, 0.0f
